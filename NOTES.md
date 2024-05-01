@@ -16,3 +16,50 @@
 ```cypher
 MATCH (n) RETURN n;
 ```
+
+## Two nodes, one replationship
+
+```cypher
+match (a) -- (b) return a, b limit 10;
+```
+
+```cypher
+match (a) --> (b) return a, b limit 10;
+```
+
+```cypher
+match (a) --> () return a, b limit 10;
+```
+
+```cypher
+match (a) --> () return a.name, b limit 10;
+```
+
+```cypher
+match (a) -[r]- () return r limit 10;
+```
+
+```cypher
+match (a) -[r]- () return a.name, type(r) limit 10;
+```
+
+```cypher
+match (a) 
+optional match (a)-[r]- () return a.name, type(r) limit 10;
+```
+
+```cypher
+match (a)-[:ACTED_IN] -> (m) return a.name, m.title limit 10;
+```
+
+```cypher
+match (a)-[r:ACTED_IN] -> (m) return a.name, r.roles, m.title limit 10;
+```
+
+## Path
+```cypher
+match (a) --> (b) --> (c) return a,b,c limit 10
+match (a) --> (b) --> (c) return a.name,b.name,c.title limit 10
+match (a) --> (b) <-- (c) return a,b,c limit 10
+```
+
