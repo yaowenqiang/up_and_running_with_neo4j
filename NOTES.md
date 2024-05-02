@@ -63,3 +63,44 @@ match (a) --> (b) --> (c) return a.name,b.name,c.title limit 10
 match (a) --> (b) <-- (c) return a,b,c limit 10
 ```
 
+```cypher
+match (a) -[:ACTED_IN] ->(m) <- [:DIRECTED] - (d) return a,name,m.title,d.name limit 10
+match (a) -[:ACTED_IN] ->(m) <- [:DIRECTED] - (d) return a,name as actor,m.title as movie,d.name as director limit 10
+```
+
+```cypher
+match (a) -[:ACTED_IN] ->(m) , (d) - [:DIRECTED] -> (m) return a,name as actor,m.title as movie,d.name as director limit 10
+```
+
+```cypher
+match p=(a) -[:ACTED_IN] ->(m) < - [:DIRECTED] - (d) return p
+match p=(a) -[:ACTED_IN] ->(m) < - [:DIRECTED] - (d) return nodes(p)
+match p=(a)-->(m) <--(d) return relationships(p)
+
+match p1=(a) -[:ACTED_IN] ->(m),
+p2=(d) - [:DIRECTED] -> (m) 
+return p1, p2
+```
+
+# Aggregation
+
+```cypher
+match (a) - [:ACTED_IN] -> (m) <- [:DIRECTED] - (d) return a.name, d.name, count(*)
+match (a) - [:ACTED_IN] -> (m) <- [:DIRECTED] - (d) return a.name, d.name, count(m)
+match (a) - [:ACTED_IN] -> (m) <- [:DIRECTED] - (d) return a.name as actor, d.name as director, count(m) as count;
+
+// collect(m.title) return a  array of m.title
+
+match (a) - [:ACTED_IN] -> (m) <- [:DIRECTED] - (d) return a.name, d.name, collect(m.title)
+```
+
+## Aggregation keywords
+
++ count
++ min
++ max
++ avg
++ sum
++ collect all the occurrences into an array
+
+
