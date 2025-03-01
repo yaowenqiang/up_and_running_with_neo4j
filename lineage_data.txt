@@ -1,0 +1,2 @@
+表 raw_sales 通过任务 ETL_Job_1 生成表 sales_data。
+表 sales_data 通过任务 ETL_Job_2 生成表 processed_sales。

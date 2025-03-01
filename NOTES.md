@@ -57,6 +57,7 @@ match (a)-[r:ACTED_IN] -> (m) return a.name, r.roles, m.title limit 10;
 ```
 
 ## Path
+
 ```cypher
 match (a) --> (b) --> (c) return a,b,c limit 10
 match (a) --> (b) --> (c) return a.name,b.name,c.title limit 10
@@ -82,7 +83,7 @@ p2=(d) - [:DIRECTED] -> (m)
 return p1, p2
 ```
 
-# Aggregation
+## Aggregation
 
 ```cypher
 match (a) - [:ACTED_IN] -> (m) <- [:DIRECTED] - (d) return a.name, d.name, count(*)
@@ -512,3 +513,6 @@ return [n in nodes(p) | n.name] as names;
 
 > https://www.neotechnology.com/price-listo
 
+
+
+> docker run  --name my-neo4j  -p 7474:7474  -p 7687:7687  -e NEO4J_AUTH=neo4j/password  neo4j
